@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مغامرة الحاسوب – مراجعة في مادة الإعلام الآلي</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b1026;--bg2:#141a3f;--card:#171e47;--ink:#f3f5ff;--mute:#9aa4d6;--line:#2a3470;--cyan:#22d3ee;--pink:#ff4fa3;--yel:#ffd23f;--grn:#2ee59d;--red:#ff5d6c;--vio:#8b5cf6;--c:var(--cyan)}
+*{box-sizing:border-box}
+html{color-scheme:dark}
+body{margin:0;color:var(--ink);font-family:Cairo,Tahoma,"Segoe UI",Arial,sans-serif;line-height:1.7;min-height:100vh;background:radial-gradient(900px 500px at 85% -10%,#3a2a8a55,transparent),radial-gradient(700px 500px at 0% 40%,#0e7c8655,transparent),var(--bg);background-attachment:fixed;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:38px 38px;pointer-events:none;mask-image:linear-gradient(#000,transparent 85%)}
+.fl{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.fl span{position:absolute;bottom:-60px;font-size:2rem;opacity:.16;animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-115vh) rotate(360deg)}}
+header,main,footer{position:relative;z-index:1}
+header{text-align:center;padding:26px 16px 14px;padding-top:max(26px,env(safe-area-inset-top))}
+.mascot{font-size:3.4rem;display:inline-block;animation:bob 2.4s ease-in-out infinite;filter:drop-shadow(0 0 18px #22d3ee99)}
+@keyframes bob{50%{transform:translateY(-10px) rotate(-6deg)}}
+h1{margin:0;font-size:clamp(2rem,7vw,3rem);font-weight:900;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--yel),var(--cyan));background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:-250% 0}}
+.sub{margin:2px 0 0;font-weight:800;font-size:1.05rem}
+.sch{margin:0;color:var(--mute);font-size:.9rem}
+#mute{position:absolute;top:max(12px,env(safe-area-inset-top));inset-inline-start:12px;background:#ffffff14;border:1px solid var(--line);color:var(--ink);border-radius:999px;width:42px;height:42px;font-size:1.2rem;cursor:pointer}
+main{max-width:780px;margin:0 auto;padding:12px 16px 8px}
+.hello{background:linear-gradient(135deg,#22d3ee22,#ff4fa322);border:1px solid var(--line);border-radius:18px;padding:14px 18px;margin-bottom:18px;backdrop-filter:blur(6px)}
+.hello b{color:var(--yel)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.topic{position:relative;background:var(--card);border:2px solid color-mix(in srgb,var(--c) 45%,transparent);border-radius:20px;padding:16px;text-align:right;cursor:pointer;color:var(--ink);font:inherit;display:flex;flex-direction:column;gap:2px;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s;animation:pop .5s backwards}
+.topic::after{content:"";position:absolute;width:140px;height:140px;border-radius:50%;background:var(--c);opacity:.14;top:-50px;inset-inline-start:-40px;transition:.3s}
+.topic:hover,.topic:focus-visible{transform:translateY(-5px) rotate(-.8deg);border-color:var(--c);box-shadow:0 10px 30px color-mix(in srgb,var(--c) 40%,transparent);outline:none}
+.topic:hover::after{transform:scale(1.5);opacity:.22}
+.topic:active{transform:scale(.97)}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.92)}}
+.topic .ic{font-size:2rem;width:58px;height:58px;display:grid;place-items:center;border-radius:16px;background:color-mix(in srgb,var(--c) 25%,transparent);box-shadow:0 0 22px color-mix(in srgb,var(--c) 50%,transparent);margin-bottom:6px;position:relative;z-index:1}
+.topic strong{font-size:1.15rem;font-weight:800;position:relative;z-index:1}
+.topic small{color:var(--mute);position:relative;z-index:1}
+.star{color:var(--yel);letter-spacing:3px;text-shadow:0 0 10px #ffd23f88;position:relative;z-index:1}
+.wide{grid-column:1/-1;--c:var(--yel);flex-direction:row;align-items:center;gap:14px;background:linear-gradient(120deg,#3a2a8a,#a3246e)}
+.wide .ic{margin:0;flex:none}
+.wide .tx{display:flex;flex-direction:column;flex:1}
+.bar{display:flex;justify-content:space-between;gap:8px;align-items:center;font-weight:800;margin-bottom:14px;flex-wrap:wrap}
+.pill{background:#ffffff12;border:1px solid var(--line);border-radius:999px;padding:3px 14px;position:relative}
+#hearts span{display:inline-block;transition:transform .2s}
+#hearts .lost{filter:grayscale(1);opacity:.5}
+#hearts .brk{animation:brk .7s}
+@keyframes brk{20%{transform:scale(1.8) rotate(-15deg)}60%{transform:scale(.7) rotate(12deg)}}
+#score.pop{animation:sp .4s}
+@keyframes sp{50%{transform:scale(1.3);background:var(--yel);color:#000}}
+.gain{position:absolute;top:-6px;inset-inline-start:50%;color:var(--grn);font-weight:900;animation:up 1s forwards;pointer-events:none;white-space:nowrap}
+@keyframes up{to{transform:translateY(-34px);opacity:0}}
+#streak{background:linear-gradient(90deg,#ff7a18,#ff4fa3);border:0;animation:sp .5s}
+.ring{width:54px;height:54px;position:relative;margin-inline-start:auto}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:6}
+.ring .bg{stroke:#ffffff18}
+.ring .fg{stroke:var(--cyan);stroke-linecap:round;stroke-dasharray:138.2;transition:stroke-dashoffset 1s linear,stroke .3s;filter:drop-shadow(0 0 4px currentColor)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:1.05rem}
+.ring.low{animation:tk .5s infinite}
+.ring.low .fg{stroke:var(--red)}
+@keyframes tk{50%{transform:scale(1.14)}}
+.pbar{height:8px;background:#ffffff14;border-radius:6px;overflow:hidden;margin-bottom:16px}
+.pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--pink));border-radius:6px;transition:width .5s}
+.q{background:linear-gradient(var(--card),var(--card)) padding-box,linear-gradient(135deg,var(--cyan),var(--pink)) border-box;border:2px solid transparent;border-radius:20px;padding:20px;font-size:1.3rem;font-weight:800;margin-bottom:14px;box-shadow:0 12px 40px #00000055;animation:pop .4s}
+.opts{display:grid;gap:11px}
+.opt{display:flex;align-items:center;gap:12px;background:var(--card);border:2px solid var(--line);border-radius:16px;padding:12px 14px;font:inherit;font-size:1.08rem;font-weight:600;color:var(--ink);text-align:right;cursor:pointer;transition:transform .15s,border-color .15s,background .15s;animation:pop .4s backwards}
+.opt:nth-child(2){animation-delay:.06s}.opt:nth-child(3){animation-delay:.12s}.opt:nth-child(4){animation-delay:.18s}
+.opt em{font-style:normal;flex:none;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;font-weight:900;background:var(--k);color:#0b1026}
+.opt:nth-child(1){--k:var(--cyan)}.opt:nth-child(2){--k:var(--pink)}.opt:nth-child(3){--k:var(--yel)}.opt:nth-child(4){--k:var(--grn)}
+.opt:hover:not(:disabled),.opt:focus-visible{transform:translateX(-6px);border-color:var(--k);background:#1d2656;outline:none}
+.opt:active:not(:disabled){transform:scale(.97)}
+.opt.ok{background:var(--grn);border-color:var(--grn);color:#04281a;animation:ok .6s}
+.opt.bad{background:var(--red);border-color:var(--red);color:#fff;animation:shk .5s}
+.opt.ok em,.opt.bad em{background:#ffffff55;color:inherit}
+.opt:disabled:not(.ok):not(.bad){opacity:.55}
+.opt:disabled{cursor:default}
+@keyframes ok{40%{transform:scale(1.04);box-shadow:0 0 0 10px #2ee59d44}}
+@keyframes shk{20%,60%{transform:translateX(9px)}40%,80%{transform:translateX(-9px)}}
+.fb{margin-top:14px;padding:14px 16px;border-radius:16px;background:var(--card);border:1px solid var(--line);border-inline-start:6px solid var(--yel);animation:pop .35s}
+.fb.good{border-inline-start-color:var(--grn)}.fb.wrong{border-inline-start-color:var(--red)}
+.btn{background:linear-gradient(135deg,var(--cyan),var(--vio));color:#fff;border:0;border-radius:16px;padding:12px 26px;font:inherit;font-weight:800;font-size:1.08rem;cursor:pointer;margin-top:14px;box-shadow:0 6px 0 #0006,0 10px 24px #22d3ee33;transition:transform .12s,box-shadow .12s}
+.btn:hover,.btn:focus-visible{transform:translateY(-2px);outline:none}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #0006}
+.btn.alt{background:transparent;color:var(--cyan);border:2px solid var(--cyan);box-shadow:none}
+.res{text-align:center;background:var(--card);border:2px solid var(--line);border-radius:24px;padding:28px 16px;animation:pop .5s}
+.res .big{font-size:4rem;display:inline-block;animation:bob 1.6s ease-in-out infinite}
+.res h2{margin:.2em 0}
+.res .star{font-size:2.4rem}
+.res .star i{font-style:normal;display:inline-block;animation:pop .5s backwards}
+.res .sc{font-size:1.6rem;font-weight:900;color:var(--yel)}
+#cf{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9}
+footer{text-align:center;color:var(--mute);font-size:.85rem;padding:20px 12px calc(20px + env(safe-area-inset-bottom))}
+.hide{display:none!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.fl{display:none}}
+</style>
+</head>
+<body>
+<div class="fl" aria-hidden="true"></div>
+<canvas id="cf" aria-hidden="true"></canvas>
+<header>
+  <button id="mute" aria-label="الصوت" title="الصوت">🔊</button>
+  <div class="mascot">🖥️</div>
+  <h1>مغامرة الحاسوب</h1>
+  <p class="sub">مراجعة في مادة الإعلام الآلي – المجال التعلمي 1: بيئة التعامل مع الحاسوب</p>
+  <p class="sch">السنة الأولى ثانوي</p>
+</header>
+<main>
+  <section id="home">
+    <div class="hello">مرحبًا أيها البطل! أجب عن الأسئلة قبل أن ينتهي الوقت، واحذر: لديك <b>4 قلوب ❤️</b> فقط. كل إجابة صحيحة تمنحك نقاطًا، وكلما أجبت أسرع وتتابعت إجاباتك الصحيحة زادت نقاطك. اختر درسًا لتبدأ:</div>
+    <div class="grid" id="topics"></div>
+  </section>
+  <section id="game" class="hide">
+    <div class="bar"><span class="pill" id="hearts"></span><span class="pill" id="prog"></span><span class="pill" id="score"></span><span class="pill hide" id="streak"></span>
+      <div class="ring" id="ring"><svg viewBox="0 0 54 54"><circle class="bg" cx="27" cy="27" r="22"/><circle class="fg" id="tbar" cx="27" cy="27" r="22"/></svg><b id="tnum">20</b></div></div>
+    <div class="pbar"><i id="pb"></i></div>
+    <div class="q" id="qtext"></div>
+    <div class="opts" id="opts"></div>
+    <div class="fb hide" id="fb"></div>
+    <button class="btn hide" id="next">السؤال التالي</button>
+  </section>
+  <section id="end" class="hide"></section>
+</main>
+<footer>من إعداد الأستاذة عروة.ي</footer>
+
+<script>
+// [سؤال، [الخيارات]، رقم الإجابة الصحيحة، الشرح]
+const T=[
+{n:"تقنية المعلومات",i:"💡",q:[
+["البيانات التي تمت معالجتها تسمى:",["معلومات","رموز","أرقام","صور"],0,"المعلومات هي بيانات تمت معالجتها، أما البيانات فهي صور ورموز وحروف وأرقام وكلمات."],
+["أي مما يلي من مميزات تكنولوجيا الإعلام والاتصال؟",["ربح الوقت والجهد","تشتت الانتباه","تقليل فرص العمل","الاعتماد الكلي على التكنولوجيا"],0,"ربح الوقت والجهد وتوفير معلومات حديثة من المميزات، أما البقية فهي من السلبيات."],
+["أي مما يلي من سلبيات تكنولوجيا الإعلام والاتصال؟",["تشتت الانتباه عند الاستعمال المكثف","توفير معلومات حديثة","تقديم خدمات أفضل","ربح الوقت"],0,"الاستعمال المكثف يشتت الانتباه ويقلل من مهارات الإنسان."],
+["Windows و Android و iOS هي:",["أنظمة تشغيل","برامج تطبيقية","أجهزة إدخال","مضادات فيروسات"],0,"نظام التشغيل مجموعة برامج تسمح باستغلال الحاسوب وملحقاته وتنفذ البرامج الأخرى."],
+["Word و Excel هما من:",["البرامج التطبيقية","أنظمة التشغيل","وحدات الإخراج","أنواع الشبكات"],0,"البرامج التطبيقية هي البرامج التي نستعملها في ميادين مختلفة."],
+["المعلوماتية هي العلم الذي يعالج البيانات والمعلومات بطريقة:",["آلية","يدوية","عشوائية","ورقية"],0,"المعلوماتية: علم المعالجة الآلية للبيانات والمعلومات."],
+["كلمة «تكنو» في Technologie تعني:",["مهارة فنية","علم","اتصال","إخبار"],0,"تكنو: مهارة فنية، ولوجيا: علم."]]},
+
+{n:"تجميع الحاسوب",i:"🔧",q:[
+["الماسح الضوئي (Scanner) هو وحدة:",["إدخال","إخراج","تخزين","معالجة"],0,"وحدات الإدخال: لوحة المفاتيح، الفأرة، الماسح الضوئي."],
+["الطابعة (Imprimante) هي وحدة:",["إخراج","إدخال","تغذية","ربط"],0,"وحدات الإخراج: الشاشة، مكبر الصوت، الطابعة."],
+["عقل الحاسوب الذي ينسق كل المهام هو:",["المعالج","القرص المرن","علبة التغذية","الماسح الضوئي"],0,"المعالج Processeur سرعته تقاس بـ GHz أو MHz."],
+["الذاكرة التي تمحى معلوماتها بمجرد انقطاع التيار الكهربائي:",["RAM","ROM","القرص الصلب","القرص المضغوط"],0,"RAM هي الذاكرة الحية، أما ROM فلا تمحى."],
+["الذاكرة التي تخزن نظام الإدخال والإخراج الأساسي BIOS:",["ROM","RAM","الفأرة","الشاشة"],0,"ROM الذاكرة الميتة تحتوي على معلومات ضرورية لتشغيل الحاسوب ولا يمكن تغيير محتواها."],
+["أكبر قطعة في الحاسوب وتربط أجزاءه ببعضها هي:",["البطاقة الأم","البطاقة الصوتية","القرص المرن","الطابعة"],0,"البطاقة الأم Carte mère تضم جميع أجزاء الحاسوب."],
+["الأوكتي الواحد (1 octet) يساوي:",["8 bit","4 bit","10 bit","1 bit"],0,"كل 8 bit تشكل أوكتي، وهو يكفي لتخزين حرف أو رقم أو رمز واحد."],
+["قرص الفلاش يتصل بالوحدة المركزية عن طريق المنفذ:",["USB","RJ45","الكهربائي","الصوتي"],0,"القرص فلاش سعته كبيرة (من 1Go إلى 1To) ويتصل عبر USB."]]},
+
+{n:"الشبكة المحلية",i:"🌐",q:[
+["أقل عدد من الحواسيب لتكوين شبكة:",["حاسوبان","حاسوب واحد","ثلاثة حواسيب","عشرة حواسيب"],0,"الشبكة تتكون من حاسوبين على الأقل متصلين لتبادل المعلومات."],
+["شبكة LAN تستعمل لتغطية:",["أماكن محدودة وصغيرة كالمخبر والمنزل","مدن متباعدة","دول مختلفة","ثانويات تبعد 100 كلم"],0,"LAN شبكة محلية مثل المنزل ومخبر الإعلام الآلي ومقاهي الإنترنت."],
+["الشبكة المستعملة لربط مناطق تتباعد بأكثر من 100 كلم:",["WAN","LAN","MAN","Bus"],0,"WAN الشبكة الواسعة، وهي بطيئة مقارنة بالأصناف الأخرى."],
+["في شبكة الند للند (Peer to Peer):",["يمكن للحاسوب أن يكون زبونًا وخادمًا في نفس الوقت","يوجد خادم واحد يتحكم في الجميع","لا يمكن الاتصال بالإنترنت","تستعمل الأقمار الصناعية فقط"],0,"في الند للند لا يتحكم حاسوب بآخر، عكس نظام Client/Serveur."],
+["في طوبولوجيا النجمة، تتصل كل الأجهزة بـ:",["Switch أو Hub","سلك واحد مشترك","حاسوب واحد فقط","الجهاز الأخير"],0,"الـ switch أو hub هو من يوجه كل المعلومات المرسلة في الشبكة."],
+["طوبولوجيا الباص (Bus) تعني أن الأجهزة متصلة بـ:",["نفس السلك","نقطة مركزية","حلقة مغلقة","الأقمار الصناعية"],0,"في الباص تكون الأجهزة متصلة بنفس الكابل."],
+["الوصلة RJ45 تستعمل مع:",["كابل الشبكة","لوحة المفاتيح","الطابعة","الشاشة"],0,"المكونات المادية: حاسوبان، بطاقة شبكة، كابل و RJ45، موجه، switch أو hub."],
+["شبكة Wi-Fi هي شبكة:",["لاسلكية","سلكية","نجمية فقط","غير موجودة"],0,"الشبكات اللاسلكية تستعمل الربط اللاسلكي كأشعة الراديو."]]},
+
+{n:"حماية الحاسوب",i:"🛡️",q:[
+["فيروس الحاسوب هو:",["برنامج صغير يدخل الحاسوب دون علم المستخدم بغرض التدمير","قطعة مادية في الحاسوب","نظام تشغيل","برنامج للرسم"],0,"الفيروس يدخل دون علم المستخدم ليدمر برامج أو ملفات."],
+["من خصائص الفيروسات:",["الانتشار والتخفي والقدرة التدميرية","السرعة والجودة","التخزين والطباعة","الإدخال والإخراج"],0,"من خصائصها: الانتشار، القدرة على التخفي، القدرة التدميرية."],
+["الفيروس الذي يكون جزءًا من برنامج دون علم المستخدم ثم يشتغل فجأة:",["حصان طروادة","الدودة","الماكرو","Avast"],0,"حصان طروادة يختبئ داخل برنامج ثم يخرب أو يعطل البرامج والملفات."],
+["الفيروس الذي ينتشر فقط عبر الشبكات والإنترنت:",["الدودة","حصان طروادة","فيروس الملفات","فيروس الإقلاع"],0,"الدودة تنتشر عبر الشبكات والإنترنت."],
+["فيروسات الماكرو تصيب برامج مثل:",["Microsoft Word","BIOS","الفأرة","الشاشة"],0,"الماكرو يصيب تطبيقات المكتب كـ Word."],
+["أي مما يلي مضاد فيروسات؟",["Kaspersky","Windows 10","Linux","Excel"],0,"من المضادات الشائعة: Norton وAvast وKaspersky وAvira وAVG."],
+["يكتشف مضاد الفيروسات البرمجيات الخبيثة بالاعتماد على:",["قاعدة بيانات تعريف الفيروس","حجم القرص","لون الشاشة","سرعة الفأرة"],0,"قاعدة بيانات التعريف تحتاج تحديثًا دوريًا لتكشف الجديد."],
+["الامتدادات .exe و .bat و .com تدل على:",["برنامج تنفيذي قد يكون فيروسًا","صورة","ملف صوت","مستند نصي"],0,"الفيروس برنامج تنفيذي له امتداد .exe أو .bat أو .com."]]},
+
+{n:"لوحة التحكم",i:"⚙️",q:[
+["لوحة التحكم (Panneau de configuration) تستخدم في:",["إعدادات مكونات الحاسوب والنظام","كتابة النصوص","الرسم","الطباعة فقط"],0,"نغير منها إعدادات النظام ونخصصها كما نريد."],
+["لتغيير خلفية الشاشة ننقر على:",["Personnalisation","Souris","Comptes d’utilisateurs","Région et langue"],0,"Démarrer ← Panneau de configuration ← Personnalisation."],
+["لتغيير خصائص الفأرة ننقر على:",["Souris","Personnalisation","Programmes et fonctionnalités","Formats"],0,"Souris ثم نغير الخصائص وننقر OK."],
+["لإزالة برنامج ننقر على:",["Programmes et fonctionnalités","Souris","Région et langue","Personnalisation"],0,"نختار البرنامج ثم ننقر désinstaller."],
+["لإضافة لغة أو تغيير الوقت والتاريخ ننقر على:",["Région et langue","Souris","Comptes d’utilisateurs","Programmes et fonctionnalités"],0,"نغير اللغة من التبويب Formats."],
+["لإنشاء حساب مستخدم جديد ننقر على:",["Comptes d’utilisateurs","Souris","Personnalisation","Région et langue"],0,"ثم Gérer un autre compte."],
+["نبدأ دائمًا للوصول إلى لوحة التحكم بالنقر على الزر:",["Démarrer","Terminer","OK","Propriétés"],0,"Démarrer ثم Panneau de configuration."]]},
+
+{n:"تثبيت نظام التشغيل",i:"💿",q:[
+["نظام التشغيل هو مجموعة من البرامج التي تسمح باستغلال الحاسوب، ويمثل وسيطًا بين:",["المستخدم والعتاد","الطابعة والشاشة","الفيروس والمضاد","الشبكة والكابل"],0,"من أمثلته Windows وLinux وMac OS وAndroid للهواتف."],
+["تثبيت النظام هو:",["نسخ ملفاته وجعلها متوفرة بصفة دائمة على القرص الصلب","تنظيف الشاشة","فصل الشبكة","طباعة ملف"],0,"بالتثبيت يتمكن الحاسوب من القيام بجميع مهامه."],
+["القرص الصلب مسؤول عن:",["التخزين الدائم للمعلومات حتى عند انقطاع التيار","معالجة البيانات","إخراج الصوت","إدخال النصوص"],0,"يحتفظ بالبيانات حتى في حالة قطع التيار الكهربائي."],
+["تقسيم القرص الصلب (Partition) هو:",["تجزئته إلى أقسام أصغر لكل قسم حرف خاص (مثل C: و D:)","مسحه كليًا","تسريع المعالج","فصله عن الحاسوب"],0,"التقسيم ينظم القرص ويتم خلال مرحلة التثبيت."],
+["تهيئة القرص الصلب (Formatage) هي وضع:",["نظام الملفات مثل NTFS أو FAT32","فيروس","كابل","برنامج ألعاب"],0,"نظام الملفات يتيح للنظام القراءة والتخزين على القرص."],
+["أي مما يلي نظام ملفات؟",["NTFS","RJ45","USB","BIOS"],0,"أنظمة الملفات: FAT32 وNTFS وEXT4."],
+["قبل التثبيت نضغط عند بدء التشغيل على زر مثل F2 أو Del لندخل إلى:",["BIOS","لوحة التحكم","الإنترنت","Word"],0,"من BIOS نغير ترتيب الإقلاع (Boot) من القرص الصلب إلى القرص المضغوط أو USB ثم نحفظ ونغادر."]]}
+];
+const $=id=>document.getElementById(id);
+let best={};try{best=JSON.parse(localStorage.getItem("pcq_best")||"{}")}catch(e){}
+function save(){try{localStorage.setItem("pcq_best",JSON.stringify(best))}catch(e){}}
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const stars=n=>"★".repeat(n)+"☆".repeat(3-n);
+const COL=["--cyan","--pink","--yel","--grn","--vio"],LET=["أ","ب","ج","د"];
+// خلفية عائمة
+(()=>{const f=document.querySelector(".fl"),e=["💾","⌨️","🖱️","🔌","🧠","📡","🛡️","💿","🖨️","🔧"];
+for(let i=0;i<12;i++){const s=document.createElement("span");s.textContent=e[i%e.length];s.style.cssText=`left:${i*8.5}%;animation-duration:${14+i*2%9}s;animation-delay:-${i*2.3}s;font-size:${1.4+i%3*.7}rem`;f.appendChild(s)}})();
+// الصوت
+let snd=true,AC;$("mute").onclick=()=>{snd=!snd;$("mute").textContent=snd?"🔊":"🔇"};
+function beep(seq){if(!snd)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();let t=AC.currentTime;seq.forEach(([f,d,ty])=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ty||"sine";o.frequency.value=f;g.gain.setValueAtTime(.15,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+d);t+=d*.8})}catch(e){}}
+const SFX={ok:[[523,.1],[659,.1],[784,.18]],bad:[[220,.18,"sawtooth"],[165,.25,"sawtooth"]],win:[[523,.12],[659,.12],[784,.12],[1047,.3]],lose:[[330,.2,"triangle"],[262,.2,"triangle"],[196,.4,"triangle"]]};
+// قصاصات الاحتفال
+function confetti(){const c=$("cf"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+const cols=["#22d3ee","#ff4fa3","#ffd23f","#2ee59d","#8b5cf6"],P=Array.from({length:130},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,w:6+Math.random()*6,h:8+Math.random()*8,vy:2+Math.random()*4,vx:Math.random()*4-2,r:Math.random()*6,vr:Math.random()*.3-.15,c:cols[Math.random()*5|0]}));let n=0;
+(function f(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.w/2,-p.h/2,p.w,p.h);x.restore()});if(++n<220)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})()}
+function home(){
+  ["game","end"].forEach(x=>$(x).classList.add("hide"));$("home").classList.remove("hide");
+  const el=$("topics");el.innerHTML="";
+  T.forEach((t,k)=>{const b=document.createElement("button");b.className="topic";b.style.setProperty("--c",`var(${COL[k%5]})`);b.style.animationDelay=k*.07+"s";
+    b.innerHTML=`<span class="ic">${t.i}</span><strong>${t.n}</strong><small>${t.q.length} أسئلة</small><span class="star">${stars((best[k]||{}).s||0)}</span>`;
+    b.onclick=()=>start(k);el.appendChild(b)});
+  const w=document.createElement("button");w.className="topic wide";w.style.animationDelay=T.length*.07+"s";
+  w.innerHTML=`<span class="ic">🏆</span><span class="tx"><strong>التحدي الشامل</strong><small style="color:#ffe9f4">10 أسئلة عشوائية من كل الدروس</small></span><span class="star">${stars((best.all||{}).s||0)}</span>`;
+  w.onclick=()=>start("all");el.appendChild(w);
+}
+let G;
+function start(k){
+  let qs=k==="all"?shuffle(T.flatMap(t=>t.q)).slice(0,10):shuffle(T[k].q);
+  G={k,qs,i:0,score:0,hearts:4,streak:0,ok:0,t:20,tm:null};
+  $("home").classList.add("hide");$("end").classList.add("hide");$("game").classList.remove("hide");show();
+}
+function hearts(lost){$("hearts").innerHTML=[0,1,2,3].map(i=>`<span class="${i>=G.hearts?"lost":""} ${i===lost?"brk":""}">${i>=G.hearts?"🖤":"❤️"}</span>`).join("")}
+function show(){
+  const q=G.qs[G.i];G.done=false;hearts(-1);
+  $("prog").textContent=`السؤال ${G.i+1} / ${G.qs.length}`;$("score").textContent=`⭐ ${G.score}`;$("pb").style.width=(G.i/G.qs.length*100)+"%";
+  const sk=$("streak");sk.classList.toggle("hide",G.streak<2);sk.textContent=`🔥 ×${G.streak}`;
+  const qt=$("qtext");qt.textContent=q[0];qt.style.animation="none";void qt.offsetWidth;qt.style.animation="";
+  $("fb").classList.add("hide");$("next").classList.add("hide");
+  const o=$("opts");o.innerHTML="";
+  shuffle(q[1].map((t,j)=>({t,c:j===q[2]}))).forEach((x,n)=>{const b=document.createElement("button");b.className="opt";b.innerHTML=`<em>${LET[n]}</em><span></span>`;b.lastChild.textContent=x.t;b.dataset.c=x.c?1:0;b.onclick=()=>pick(b);o.appendChild(b)});
+  G.t=20;tick(true);clearInterval(G.tm);G.tm=setInterval(()=>{G.t--;tick();if(G.t<=0)pick(null)},1000);
+}
+function tick(first){const b=$("tbar");if(first){b.style.transition="none";b.style.strokeDashoffset=0;void b.getBoundingClientRect();b.style.transition=""}else b.style.strokeDashoffset=138.2*(1-G.t/20);
+  $("tnum").textContent=Math.max(G.t,0);$("ring").classList.toggle("low",G.t<=6);if(!first&&G.t>0&&G.t<=5)beep([[880,.05,"square"]])}
+function pick(btn){
+  if(G.done)return;G.done=true;clearInterval(G.tm);$("ring").classList.remove("low");
+  const q=G.qs[G.i];let right=btn&&btn.dataset.c==="1",lost=-1;
+  document.querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.dataset.c==="1")b.classList.add("ok")});
+  let msg,gain=0;
+  if(right){G.streak++;G.ok++;gain=10+G.t+Math.min(G.streak-1,5)*2;G.score+=gain;msg=`✅ أحسنت! +${gain} نقطة`+(G.streak>2?` 🔥 ${G.streak} إجابات متتالية`:"");beep(SFX.ok)}
+  else{btn&&btn.classList.add("bad");G.streak=0;lost=--G.hearts;msg=btn?"❌ إجابة خاطئة":"⏰ انتهى الوقت";beep(SFX.bad);if(navigator.vibrate)navigator.vibrate(200)}
+  hearts(lost);const sc=$("score");sc.textContent=`⭐ ${G.score}`;
+  if(gain){sc.classList.remove("pop");void sc.offsetWidth;sc.classList.add("pop");const g=document.createElement("span");g.className="gain";g.textContent="+"+gain;sc.appendChild(g);setTimeout(()=>g.remove(),1000)}
+  $("streak").classList.toggle("hide",G.streak<2);$("streak").textContent=`🔥 ×${G.streak}`;
+  $("pb").style.width=((G.i+1)/G.qs.length*100)+"%";
+  const f=$("fb");f.className="fb "+(right?"good":"wrong");f.innerHTML=`<b>${msg}</b><br>${q[3]}`;
+  const n=$("next");n.textContent=(G.hearts<=0||G.i+1>=G.qs.length)?"عرض النتيجة":"السؤال التالي";n.classList.remove("hide");n.focus();
+}
+$("next").onclick=()=>{if(G.hearts<=0||G.i+1>=G.qs.length)finish();else{G.i++;show()}};
+function finish(){
+  $("game").classList.add("hide");const e=$("end");e.classList.remove("hide");
+  const p=G.ok/G.qs.length,s=G.hearts>0&&p>=.9?3:p>=.7?2:p>=.4?1:0;
+  const key=G.k,old=best[key]||{s:0,p:0};
+  best[key]={s:Math.max(old.s,s),p:Math.max(old.p,G.score)};save();
+  const m=["حاول مرة أخرى، ستنجح! 💪","بداية جيدة، راجع الدرس وأعد المحاولة 📘","أداء جيد جدًا! 👏","بطل الحاسوب! أداء ممتاز 🏅"][s];
+  const st=[0,1,2].map(i=>`<i style="animation-delay:${.3+i*.25}s">${i<s?"★":"☆"}</i>`).join("");
+  e.innerHTML=`<div class="res"><div class="big">${G.hearts>0?"🎉":"💔"}</div><h2>${m}</h2><div class="star">${st}</div><p>الإجابات الصحيحة: <b>${G.ok}</b> من ${G.qs.length}</p><div class="sc">مجموع النقاط: ${G.score}</div><p>أفضل نتيجة لك: ${best[key].p} نقطة</p><button class="btn" id="again">🔁 أعد اللعب</button> <button class="btn alt" id="menu">القائمة الرئيسية</button></div>`;
+  $("again").onclick=()=>start(G.k);$("menu").onclick=home;
+  if(G.hearts>0&&s>=2){confetti();beep(SFX.win)}else beep(G.hearts>0?SFX.ok:SFX.lose);
+}
+home();
+</script>
+</body>
+</html>
